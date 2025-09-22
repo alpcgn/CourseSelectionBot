@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
-from main import run_bot, courses  
+from main import run_interface, courses  
 
 class BotInterface:
     def __init__(self, master):
         self.master = master
-        master.title("ATACS Bot Interface")
-        self.driver = None   # 🔑 Selenium driver referansı
+        master.title("ATACS Bot by @alpcgn")
+        self.driver = None 
 
         # Username
         tk.Label(master, text="Username:").grid(row=0, column=0, sticky="e")
@@ -40,7 +40,7 @@ class BotInterface:
         self.start_button = tk.Button(master, text="Start Bot", command=self.start_bot)
         self.start_button.grid(row=4, column=1, sticky="w")
 
-        self.close_button = tk.Button(master, text="Close Bot", command=self.close_bot)
+        self.close_button = tk.Button(master, text="Stop bot (tab will close)", command=self.close_bot)
         self.close_button.grid(row=5, column=1, sticky="w")
 
         # Load existing courses
@@ -49,7 +49,7 @@ class BotInterface:
 
     def add_course(self):
         course_code = simpledialog.askstring("Course Code", "Enter course code (e.g., CMPE323):")
-        section = simpledialog.askstring("Section", "Enter section (e.g., SEC-01):")
+        section = simpledialog.askstring("Section", "Enter section (e.g., 01 , 02):")
         if course_code and section:
             courses.append([course_code, section])
             self.course_listbox.insert(tk.END, f"{course_code} - {section}")
@@ -63,8 +63,8 @@ class BotInterface:
         index = selected_index[0]
         course_code, section = courses[index]
 
-        new_course_code = simpledialog.askstring("Edit Course", "Enter new course code:", initialvalue=course_code)
-        new_section = simpledialog.askstring("Edit Section", "Enter new section:", initialvalue=section)
+        new_course_code = simpledialog.askstring("Edit Course", "Enter course code (e.g., CMPE323):", initialvalue=course_code)
+        new_section = simpledialog.askstring("Edit Section", "Enter section (e.g., 01 , 02):", initialvalue=section)
 
         if new_course_code and new_section:
             courses[index] = [new_course_code, new_section]
@@ -88,23 +88,25 @@ class BotInterface:
         if not username or not password:
             messagebox.showerror("Error", "Username and password are required!")
             return
-
-        try:
-            self.driver = run_bot(username, password)  # driver saklanıyor
-            messagebox.showinfo("Bot Started", "Bot started successfully.")
-        except Exception as e:
-            messagebox.showerror("Bot Error", str(e))
+        while True:
+            driver = run_interface(username, password)
+            if driver is False:
+                messagebox.showinfo("Login failed", "Username or password is incorrect!")
+                break
+            else:
+                self.driver = driver
+                messagebox.showinfo("Entered successfully.")
+                break
 
     def close_bot(self):
         if self.driver:
             try:
                 self.driver.quit()
                 self.driver = None
-                messagebox.showinfo("Bot Closed", "Bot has been closed successfully.")
             except Exception as e:
                 messagebox.showerror("Error", f"Error closing bot: {e}")
         else:
-            messagebox.showwarning("Warning", "No bot is currently running.")
+            messagebox.showwarning("Warning", "Bot isn't running.")
 
 if __name__ == "__main__":
     root = tk.Tk()

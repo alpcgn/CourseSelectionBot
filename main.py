@@ -7,12 +7,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 courses = [
-    ["CMPE323", "SEC-01"], # PAY ATTENTION TO THE SYNTAX DON'T WRITE WITHOUT WITH , 
-    ["MATH276", "SEC-02"]
+    ["CMPE323", "01"], # PAY ATTENTION TO THE SYNTAX DON'T WRITE WITHOUT WITH , 
+    ["MATH276", "02"]
     ]
-username = "" #etc:  "your atacs username"
+username = "" 
 password = ""
-driver = webdriver.Chrome() #driver type, check this site for other drivers https://pypi.org/project/selenium/
+
 
 def login(_username,_password):
     username = driver.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div[1]/div/div[1]/div[2]/div/div[3]/div/div[1]/div[2]/div[1]/input')
@@ -67,30 +67,29 @@ def courseSelection(courses):
         except Exception as e:
             print(f" {full_code} button couldn't find or clicked contine for other ones.. {e}")
 
-        print(f"{course_code} {section} added to basket.")
+        print(f"{course_code} SEC{section} added to basket.")
         time.sleep(1)
 
 
 def courseCodeConvertor(course, section):
-    return f"{course} ({course}-{section})"
+    return f"{course} ({course}-SEC-{section})"
 
 
-def run_bot(username, password):
-                    
-
+def run_interface(username, password):
+    global driver
+    driver = webdriver.Chrome() #driver type, check this site for other drivers https://pypi.org/project/selenium/              
     driver.get('https://atacs.atilim.edu.tr/')  
     driver.maximize_window()
 
     time.sleep(2)
-    if username == "" or password == "":
-        print("ENTER USERNAME AND PASSWORD FROM LINE 13")
+
+    if login(username,password) == True:
+        inside()
+        time.sleep(2)
+        courseSelection(courses)
+        return driver
     else:
-        if login(username,password) == True:
-            inside()
-            time.sleep(2)
-            courseSelection(courses)
-            return driver
-        else:
-            quit
+        driver.quit()
+        return False
    
 
