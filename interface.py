@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
+from tkinter import ttk
 from main import run_interface, courses  
 
 class BotInterface:
@@ -35,6 +36,18 @@ class BotInterface:
 
         self.delete_button = tk.Button(button_frame, text="Delete", command=self.delete_course)
         self.delete_button.pack(side="left", padx=2)
+
+        # Week selection
+        tk.Label(master, text="Week:").grid(row=6, column=0, sticky="e", padx=5, pady=5)
+
+        self.week_var = tk.StringVar()
+        self.week_var.set("firstweek") 
+
+        self.radio_frame = tk.Frame(master)
+        self.radio_frame.grid(row=6, column=1, sticky="w")
+
+        tk.Radiobutton(self.radio_frame, text="First Week", variable=self.week_var, value="firstweek").pack(side="left")
+        tk.Radiobutton(self.radio_frame, text="Add/Drop", variable=self.week_var, value="adddrop").pack(side="left")
 
         # Start and Close bot buttons
         self.start_button = tk.Button(master, text="Start Bot", command=self.start_bot)
@@ -84,20 +97,21 @@ class BotInterface:
     def start_bot(self):
         username = self.username_entry.get()
         password = self.password_entry.get()
+        selected_week = self.week_var.get()
 
         if not username or not password:
             messagebox.showerror("Error", "Username and password are required!")
             return
         while True:
-            driver = run_interface(username, password)
+            driver = run_interface(username,password,selected_week)  
             if driver is False:
                 messagebox.showinfo("Login failed", "Username or password is incorrect!")
                 break
             else:
+                messagebox.showinfo("Info", "Bot has finished its operation. After checking the terminal, don’t forget to send it to your academic advisor.")
                 self.driver = driver
-                messagebox.showinfo("Entered successfully.")
                 break
-
+        
     def close_bot(self):
         if self.driver:
             try:
