@@ -70,7 +70,9 @@ def courseSelection(courses):
             button.click()
         except Exception as e:
             print(f" {full_code} button couldn't find or clicked contine for other ones.. {e}")
-
+        if driver.find_elements(By.XPATH, "/html/body/ul/li[1]/div/button"):
+            element = driver.find_element(By.XPATH, "/html/body/ul/li[1]/div/button")
+            element.click()
         print(f"{course_code} SEC{section} added to basket.")
         time.sleep(1)
 

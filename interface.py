@@ -41,13 +41,14 @@ class BotInterface:
         tk.Label(master, text="Week:").grid(row=6, column=0, sticky="e", padx=5, pady=5)
 
         self.week_var = tk.StringVar()
-        self.week_var.set("firstweek") 
+        self.week_var.set("firstweek")
 
         self.radio_frame = tk.Frame(master)
         self.radio_frame.grid(row=6, column=1, sticky="w")
 
         tk.Radiobutton(self.radio_frame, text="First Week", variable=self.week_var, value="firstweek").pack(side="left")
         tk.Radiobutton(self.radio_frame, text="Add/Drop", variable=self.week_var, value="adddrop").pack(side="left")
+
 
         # Start and Close bot buttons
         self.start_button = tk.Button(master, text="Start Bot", command=self.start_bot)

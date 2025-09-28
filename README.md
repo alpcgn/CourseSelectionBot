@@ -1,5 +1,6 @@
 # CourseSelectionBot
-Atılım University automatic course selection bot.
+- Atılım University automatic course selection bot. 
+- For now, it doesn’t work with elective courses.
 
 ## 📋 Prerequisites
 - Python 3.8+ installed [Pyhton](https://www.python.org/downloads/)
@@ -11,6 +12,14 @@ Atılım University automatic course selection bot.
 pip3 install -U selenium
 ```
 ## 🚀 Quick Start
+
+### For windows
+Open run.bat
+### For linux/macOS
+```bash
+cd path/CourseSelectionBot
+python3 interface.py
+```
 
 ## 📝 Usage
 1. Make sure you've all prerequisites installed
@@ -35,7 +44,7 @@ pip3 install -U selenium (for linux)
 
 ### 3. WebDriver is not in PATH
 - **Problem:** Python cannot find the WebDriver executable.
-- **Solution:** Make sure the WebDriver executable is in your system PATH, or provide the full path in your script:
+- **Solution:** Make sure the WebDriver executable is in your system PATH, or provide the full path in your script(main.py):
 ```bash
 driver = webdriver.Chrome(executable_path="path/to/chromedriver")
 ```
