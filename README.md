@@ -1,5 +1,5 @@
 # CourseSelectionBot
-- Atılım University automatic course selection bot. 
+- The Atılım University course selection bot checks the page every 10 seconds and adds each course to the cart at 0.2 seconds per course. If a course fails, it skips to the next one and retries the failed course in the next cycle until manually stopped.
 - For now, it doesn’t work with elective courses.
 
 ## 📋 Prerequisites
@@ -26,7 +26,9 @@ python3 interface.py
 2. Start the bot 
 3. Enter your username & password  
 4. Add your courses as shown in examples !!! ATTENTION Add them with the mandatory courses listed first, otherwise you won't able to select.
-6. Press "Start bot" & relax 
+6. Press "Start bot" & relax
+7. Do not close the bot tab while the bot is running. Click the “Stop Bot” button to stop it after you can close safely. 
+
 
 ## 🔧 Troubleshooting
 Here are some common issues you might encounter when using this project with Selenium:
@@ -50,6 +52,6 @@ driver = webdriver.Chrome(executable_path="path/to/chromedriver")
 ```
 
 ### 4. ALSO
-In addition, it is very likely that the bot may not work properly, as it has not yet been tested in a real scenario. The bot only opens once, sends a request to the page, and waits; it is not a bot that continuously sends requests and tries to access the page. This way, we avoid any legal issues. Whether or not you can access the page still depends on your luck and your hardware performance.
+In addition, it is very likely that the bot may not work properly, as it has not yet been tested in a real scenario. The bot only opens once, sends a request to the page, and waits 10 seconds it is not a bot that continuously sends requests and tries to access the page. This way, we avoid any legal issues(i hope :D). Whether or not you can access the page still depends on your luck and your hardware performance.
 
-Bunların yanında botun düzgün çalışmaması çok olası henüz gerçek senaryoda test edilme fırsatı bulunamamıştır. Bot sadece bir kere açılıp sayfaya istek atıp beklemektedir sürekli istek atıp girmeye çalışan bir bot değildir ki bu da yasal olarak sıkıntı yaratır. Girip girememeniz yine sizin şansınıza ve donanım gücünüze bağlıdır
+Bunların yanında botun düzgün çalışmaması çok olası henüz gerçek senaryoda test edilme fırsatı bulunamamıştır. Bot sadece 10 saniyede bir kere  sayfaya istek atıp beklemektedir sürekli istek atıp girmeye çalışan bir bot değildir ki bu da yasal olarak sıkıntı yaratır. Girip girememeniz yine sizin şansınıza ve donanım gücünüze bağlıdır
